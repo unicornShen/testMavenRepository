@@ -1,0 +1,89 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>unicornShen</groupId>
+	<artifactId>test.maven.repository</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>jar</packaging>
+
+	<name>test.maven.repository</name>
+	<url>http://maven.apache.org</url>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>3.8.1</version>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>testRepository</groupId>
+			<artifactId>outerJar.jdom</artifactId>
+			<version>0.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/lib/jdom.jar</systemPath>
+		</dependency>
+	</dependencies>
+
+	<distributionManagement>
+		<repository>
+			<id>testSetting</id>
+			<name>RPY name</name>
+			<!-- <url>http://127.0.0.1:8080/nexus/content/repositories/releases/</url> -->
+			<url>file:${basedir}/src/repository/</url>
+		</repository>
+		<!-- <snapshotRepository> -->
+		<!-- <id>nexus-snapshots</id> -->
+		<!-- <name>Nexus Snapshot Repository</name> -->
+		<!-- <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots/</url> -->
+		<!-- </snapshotRepository> -->
+	</distributionManagement>
+
+	<build>
+		<finalName>TestMavenRepository</finalName>
+		<defaultGoal>compile</defaultGoal>
+
+		<!-- <plugins> -->
+		<!-- <plugin> -->
+		<!-- <groupId>org.apache.maven.plugins</groupId> -->
+		<!-- <artifactId>maven-install-plugin</artifactId> -->
+		<!-- <executions> -->
+		<!-- <execution> -->
+		<!-- <id>install-external</id> -->
+		<!-- <phase>clean</phase> -->
+		<!-- <configuration> -->
+		<!-- <file>${basedir}/src/lib/jdom.jar</file> -->
+		<!-- <repositoryLayout>default</repositoryLayout> -->
+		<!-- <groupId>testRepository</groupId> -->
+		<!-- <artifactId>outerJar.jdom</artifactId> -->
+		<!-- <version>0.0.1</version> -->
+		<!-- <packaging>jar</packaging> -->
+		<!-- <generatePom>true</generatePom> -->
+		<!-- </configuration> -->
+		<!-- <goals> -->
+		<!-- <goal>install-file</goal> -->
+		<!-- </goals> -->
+		<!-- </execution> -->
+		<!-- </executions> -->
+		<!-- </plugin> -->
+		<!-- </plugins> -->
+
+			<resources>
+				<resource>
+					<directory>${basedir}/src/lib</directory>
+					<targetPath>src/lib</targetPath>
+					<filtering>false</filtering>
+					<includes>
+						<include> *.jar </include>
+					</includes>
+				</resource>
+			</resources>
+		</build>
+</project>
