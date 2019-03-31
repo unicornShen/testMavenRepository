@@ -13,6 +13,11 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		
+		<java.version>1.8</java.version>
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
 
 	<dependencies>
@@ -23,67 +28,64 @@
 			<scope>test</scope>
 		</dependency>
 
-<!-- 		<dependency> -->
-<!-- 			<groupId>testRepository</groupId> -->
-<!-- 			<artifactId>outerJar.jdom</artifactId> -->
-<!-- 			<version>0.0.1</version> -->
-<!-- 			<scope>system</scope> -->
-<!-- 			<systemPath>${basedir}/src/lib/jdom.jar</systemPath> -->
-<!-- 		</dependency> -->
+		<dependency>
+			<groupId>unicornShen</groupId>
+			<artifactId>outerJar.jdom</artifactId>
+			<version>0.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/lib/jdom.jar</systemPath>
+		</dependency>
 	</dependencies>
 
-	<distributionManagement>
-		<repository>
-			<id>testSetting</id>
-			<name>RPY name</name>
-			<!-- <url>http://127.0.0.1:8080/nexus/content/repositories/releases/</url> -->
-			<url>file:${basedir}/src/repository/</url>
-		</repository>
-		<!-- <snapshotRepository> -->
-		<!-- <id>nexus-snapshots</id> -->
-		<!-- <name>Nexus Snapshot Repository</name> -->
-		<!-- <url>http://127.0.0.1:8080/nexus/content/repositories/snapshots/</url> -->
-		<!-- </snapshotRepository> -->
-	</distributionManagement>
-
 	<build>
-		<finalName>TestMavenRepository</finalName>
-		<defaultGoal>compile</defaultGoal>
+		<finalName>TestMavenRepositoryFinalName</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugin</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.2</version>
+				<configuration>
+					<fork>true</fork>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>UTF-8</encoding>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-install-plugin</artifactId>
+				<version>3.0.0-M1</version>
+				<executions>
+					<execution>
+						<id>install-external</id>
+						<phase>clean</phase>
+						<configuration>
+							<file>${basedir}/src/lib/jdom.jar</file>
+							<repositoryLayout>default</repositoryLayout>
+							<groupId>unicornShen</groupId>
+							<artifactId>outerJar.jdom</artifactId>
+							<version>0.0.1</version>
+							<packaging>jar</packaging>
+							<generatePom>true</generatePom>
+						</configuration>
+						<goals>
+							<goal>install-file</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 
-		<!-- <plugins> -->
-		<!-- <plugin> -->
-		<!-- <groupId>org.apache.maven.plugins</groupId> -->
-		<!-- <artifactId>maven-install-plugin</artifactId> -->
-		<!-- <executions> -->
-		<!-- <execution> -->
-		<!-- <id>install-external</id> -->
-		<!-- <phase>clean</phase> -->
-		<!-- <configuration> -->
-		<!-- <file>${basedir}/src/lib/jdom.jar</file> -->
-		<!-- <repositoryLayout>default</repositoryLayout> -->
-		<!-- <groupId>testRepository</groupId> -->
-		<!-- <artifactId>outerJar.jdom</artifactId> -->
-		<!-- <version>0.0.1</version> -->
-		<!-- <packaging>jar</packaging> -->
-		<!-- <generatePom>true</generatePom> -->
-		<!-- </configuration> -->
-		<!-- <goals> -->
-		<!-- <goal>install-file</goal> -->
-		<!-- </goals> -->
-		<!-- </execution> -->
-		<!-- </executions> -->
-		<!-- </plugin> -->
-		<!-- </plugins> -->
-
-			<resources>
-				<resource>
-					<directory>${basedir}/src/lib</directory>
-					<targetPath>src/lib</targetPath>
-					<filtering>false</filtering>
-					<includes>
-						<include> *.jar </include>
-					</includes>
-				</resource>
-			</resources>
-		</build>
+		<resources>
+			<resource>
+				<directory>${basedir}/src/lib</directory>
+				<targetPath>src/lib</targetPath>
+				<filtering>false</filtering>
+				<includes>
+					<include> *.jar </include>
+				</includes>
+			</resource>
+		</resources>
+	</build>
 </project>
