@@ -23,13 +23,13 @@
 			<scope>test</scope>
 		</dependency>
 
-		<dependency>
-			<groupId>testRepository</groupId>
-			<artifactId>outerJar.jdom</artifactId>
-			<version>0.0.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/lib/jdom.jar</systemPath>
-		</dependency>
+<!-- 		<dependency> -->
+<!-- 			<groupId>testRepository</groupId> -->
+<!-- 			<artifactId>outerJar.jdom</artifactId> -->
+<!-- 			<version>0.0.1</version> -->
+<!-- 			<scope>system</scope> -->
+<!-- 			<systemPath>${basedir}/src/lib/jdom.jar</systemPath> -->
+<!-- 		</dependency> -->
 	</dependencies>
 
 	<distributionManagement>
